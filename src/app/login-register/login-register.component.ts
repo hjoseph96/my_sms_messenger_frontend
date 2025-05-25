@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './login-register.component.html',
+  styleUrl: './login-register.component.scss'
 })
-export class AppComponent {
-  title = 'my_sms_messenger_frontend';
+export class LoginRegisterComponent {
+  title = 'My SMS Messenger';
 }
