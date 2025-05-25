@@ -3,6 +3,7 @@ import { LoginRegisterComponent } from './app/login-register/login-register.comp
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 
+
 bootstrapApplication(LoginRegisterComponent, {
   providers: [
     provideProtractorTestingSupport(),
