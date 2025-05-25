@@ -1,10 +1,11 @@
 import { bootstrapApplication, provideProtractorTestingSupport } from '@angular/platform-browser';
-import { LoginRegisterComponent } from './app/login-register/login-register.component';
+import { AppComponent } from './app/app.component';
+import { LoginRegisterComponent } from './app/components/login-register/login-register.component';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 
 
-bootstrapApplication(LoginRegisterComponent, {
+bootstrapApplication(AppComponent, {
   providers: [
     provideProtractorTestingSupport(),
     provideRouter(routes)

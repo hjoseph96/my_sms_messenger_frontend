@@ -68,12 +68,12 @@
                 <h2 class="subtitle is-3">Create an account to get started</h2>
                 <hr>
 
-                <form [formGroup]="registerForm">
+                <form [formGroup]="registerForm" (ngSubmit)="registerNewUser()">
                     <div class="field">
                         <label class="label">Email</label>
                         
                         <div class="control">
-                          <input class="input is-danger" type="email" placeholder="Enter your Email" formControlName="email">
+                          <input class="input" [class.is-danger]="registerForm.controls['email'].touched && registerForm.controls['email'].invalid" type="email" placeholder="Enter your Email" formControlName="email">
                         </div>
                         
                         <p class="help is-danger" *ngIf="registerForm.controls['email'].touched && registerForm.controls['email'].invalid">
@@ -85,7 +85,7 @@
                         <label class="label">Password</label>
 
                         <div class="control">
-                            <input class="input" type="password" placeholder="Enter Password" formControlName="password" name="password">
+                            <input class="input" [class.is-danger]="registerForm.controls['password'].touched && !registerForm.controls['password'].valid" type="password" placeholder="Enter Password" formControlName="password" name="password">
                         </div>
 
                         <div *ngIf="registerForm.controls['password'].touched ">
@@ -103,7 +103,7 @@
                         <label class="label">Confirm Password</label>
 
                         <div class="control">
-                            <input class="input" type="password" placeholder="Confirm Password" formControlName="passwordConfirmation" name="passwordConfirmation">
+                            <input class="input" [class.is-danger]="registerForm.controls['passwordConfirmation'].touched && !registerForm.controls['passwordConfirmation'].valid" type="password" placeholder="Confirm Password" formControlName="passwordConfirmation" name="passwordConfirmation">
                         </div>
 
                         <div *ngIf="registerForm.controls['passwordConfirmation'].touched ">
@@ -131,7 +131,7 @@
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="email" placeholder="Your email">
+                            <input class="input" type="email" placeholder="Your email" formControlName="email">
                         </div>
 
                         <p class="help is-danger" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].invalid">
@@ -155,4 +155,6 @@
             </div>
         </div>
     </div>
+
+    <router-outlet></router-outlet>
 </main>
