@@ -14,12 +14,15 @@ export class NavbarComponent {
   private router = inject(Router);
   client: ApiClientService = new ApiClientService()
   
-  token: string | null = null;
+  isLoggedIn: boolean = false
 
   ngOnInit() {
     const authHeader = localStorage.getItem('userToken')
     if (authHeader) 
+    {
       this.client = new ApiClientService(authHeader);
+      this.isLoggedIn = true
+    }
   }
   
   logout() {
