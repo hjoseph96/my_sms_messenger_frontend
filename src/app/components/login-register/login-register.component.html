@@ -71,7 +71,7 @@
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="email" placeholder="Your email" formControlName="email">
+                            <input class="input" type="email" placeholder="Your email" [class.is-danger]="loginForm.controls['email'].touched && !loginForm.controls['email'].valid" formControlName="email" />
                         </div>
 
                         <p class="help is-danger" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].invalid">
@@ -82,8 +82,12 @@
                     <div class="field">
                         <label class="label">Password</label>
                         <div class="control">
-                            <input class="input" type="password" placeholder="Your password" formControlName="password">
+                            <input class="input" type="password" placeholder="Your password" formControlName="password" [class.is-danger]="loginForm.controls['password'].touched && !loginForm.controls['password'].valid">
                         </div>
+
+                        <p class="help is-danger" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
+                            You must enter your password.
+                        </p>
                     </div>
 
                     <div class="field">

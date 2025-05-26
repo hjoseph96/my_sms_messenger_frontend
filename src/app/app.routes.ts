@@ -5,7 +5,7 @@ import { SendNewMessageComponent } from './components/send-new-message/send-new-
 import { ListAllMessagesComponent } from './components/list-all-messages/list-all-messages.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginRegisterComponent },
-  { path: 'send-message', component: SendNewMessageComponent },
-  { path: 'list-messages', component: ListAllMessagesComponent }
+  { path: 'send_message', component: SendNewMessageComponent },
+  { path: 'list_messages', component: ListAllMessagesComponent },
+  { path: '**', component: LoginRegisterComponent }
 ];

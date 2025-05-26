@@ -93,7 +93,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bulma/css/versions/bulma-no-dark-mode.css",
-              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
             "scripts": []
           }

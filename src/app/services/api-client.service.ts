@@ -4,8 +4,10 @@ import axios, { AxiosInstance } from 'axios';
 import { environment } from '../../environment';
 
 export interface LoginRequest {
-  email: string;
-  password: string;
+  user: {
+    email: string;
+    password: string;
+  }
 }
 
 export interface SignupRequest {
@@ -16,17 +18,12 @@ export interface SignupRequest {
   }
 }
 
-// {
-// 	"status": {
-// 		"code": 200,
-// 		"message": "Signed up successfully."
-// 	},
-// 	"data": {
-// 		"id": "683369873228dbb0d324ba71",
-// 		"email": "techniquejhhhhacdz@gmail.com",
-// 		"token": "4d11f4ba-2ae4-423e-98b9-6eb88da6d2ee"
-// 	}
-// }
+export interface NewMessageRequest {
+  message: {
+    receiver_phone_number: string,
+    content: string
+  }
+}
 
 export interface User {
     id: string;
@@ -37,12 +34,25 @@ export interface User {
 export interface Status {
     code: number;
     message: string;
-    user: User;
 }
   
 export interface AuthResponse {
     status: Status;
-    data: any
+    data: User
+}
+
+
+export interface Message {
+  id: string;
+  content: string;
+  receiver_phone_number: string;
+  user_id: string;
+}
+
+
+export interface NewMessageResponse {
+  status: Status,
+  data: Message
 }
 
 @Injectable({
@@ -63,5 +73,9 @@ export class ApiClientService {
 
   signup(userData: SignupRequest): Observable<AuthResponse> {
     return from(this.client.post<AuthResponse>('/signup', userData).then(response => response.data));
+  }
+
+  sendMessage(messageData: NewMessageRequest): Observable<NewMessageResponse> {
+    return from(this.client.post<NewMessageResponse>('/api/v1/messages', messageData).then(response => response.data));
   }
 }

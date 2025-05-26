@@ -53,7 +53,7 @@ export class LoginRegisterComponent {
 
             localStorage.setItem('currentUser', JSON.stringify(user));
 
-            this.router.navigate(['/send-message']);
+            this.router.navigate(['/send_message']);
           },
           error: (error) => {
             // Handle signup error
@@ -69,7 +69,7 @@ export class LoginRegisterComponent {
       const email = this.loginForm.controls['email'].value
       const password = this.loginForm.controls['password'].value
 
-      this.client.signup({
+      this.client.login({
         user: {
           email: email,
           password: password
@@ -81,7 +81,7 @@ export class LoginRegisterComponent {
 
             localStorage.setItem('currentUser', JSON.stringify(user));
 
-            this.router.navigate(['/send-message']);
+            this.router.navigate(['/send_message']);
           },
           error: (error) => {
             // Handle signup error

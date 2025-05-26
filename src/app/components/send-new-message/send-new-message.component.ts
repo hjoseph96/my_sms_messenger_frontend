@@ -6,19 +6,23 @@ import { RouterOutlet, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { ApiClientService } from '../../services/api-client.service';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { NgxIntlTelInputModule, CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 
 
 @Component({
-  selector: 'app-send-new-message',
+  selector: 'app-root',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterOutlet, NavbarComponent, NgxIntlTelInputModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterOutlet, NavbarComponent, NgxIntlTelInputModule],
   templateUrl: './send-new-message.component.html',
   styleUrl: './send-new-message.component.scss'
 })
 export class SendNewMessageComponent {
   private router = inject(Router);
 
+  newMessageForm: FormGroup = new FormGroup({
+    phone: new FormControl("", [Validators.required]),
+    content: new FormControl("", [Validators.required])
+  });
 
 
   sendMessage() {
