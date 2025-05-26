@@ -32,7 +32,6 @@ export class LoginRegisterComponent {
   client: ApiClientService = new ApiClientService()
   
 
-
   registerNewUser() {
     if (this.registerForm.valid) {
       const email = this.registerForm.controls['email'].value
@@ -47,12 +46,8 @@ export class LoginRegisterComponent {
         }
       }).subscribe({
           next: (response) => {
-            // Handle successful signup
-            debugger
-            // console.log('Signup successful: ', response.status.message);
-            const user = response.data.data;
-
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            // Store JWT in localStorage
+            localStorage.setItem('userToken', response.headers.authorization);
 
             this.router.navigate(['/send_message']);
           },
@@ -77,11 +72,8 @@ export class LoginRegisterComponent {
         }
       }).subscribe({
           next: (response) => {
-            debugger
-            // Handle successful signup
-            const user = response.data;
-
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            // Store JWT in localStorage
+            localStorage.setItem('userToken', response.headers.authorization);
 
             this.router.navigate(['/send_message']);
           },

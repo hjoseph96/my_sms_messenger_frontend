@@ -20,19 +20,24 @@
                                 <label class="label">To: </label>
                                 <div class="control">
                                     <ngx-intl-tel-input
-                                        [preferredCountries]="[CountryISO.UnitedStates]"
-                                        [enableAutoCountrySelect]="false"
+                                        [cssClass]="'custom'"
+                                        [preferredCountries]="preferredCountries"
+                                        [enableAutoCountrySelect]="true"
                                         [enablePlaceholder]="true"
                                         [searchCountryFlag]="true"
-                                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                        [searchCountryField]="[
+                                            SearchCountryField.Iso2,
+                                            SearchCountryField.Name
+                                        ]"
                                         [selectFirstCountry]="false"
                                         [selectedCountryISO]="CountryISO.UnitedStates"
                                         [maxLength]="15"
                                         [phoneValidation]="true"
+                                        [numberFormat]="PhoneNumberFormat.National"
                                         name="phone"
                                         formControlName="phone"
-                                        [class.is-danger]="newMessageForm.controls['phone'].touched && !newMessageForm.controls['phone'].valid"
-                                    ></ngx-intl-tel-input>
+                                    >
+                                    </ngx-intl-tel-input>
                                 </div>
 
                                 <p class="help is-danger" *ngIf="newMessageForm.controls['phone'].touched && newMessageForm.controls['phone'].invalid">
@@ -68,8 +73,12 @@
                       </div>
                   
                       <div class="content">
-                        <div *ngFor="let m of sentMessages">
-                            {{ m.content }}
+                        <div class="message" *ngFor="let m of sentMessages">
+                            <p class="title">
+                                {{ m.content }}
+                            </p>
+
+                            <span class="publication-date">Sent at {{ formatDate(m.created_at) }}</span>
                         </div>
                       </div>
                     </div>

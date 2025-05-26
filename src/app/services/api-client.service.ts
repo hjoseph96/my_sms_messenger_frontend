@@ -38,7 +38,7 @@ export interface Status {
   
 export interface AuthResponse {
     status: Status;
-    data: User
+    user: User
 }
 
 export interface Message {
@@ -49,12 +49,13 @@ export interface Message {
 }
 
 export interface NewMessageResponse {
+  message: any;
   status: Status,
   data: Message
 }
 
 export interface MessagesResponse {
-  status: Status;
+  headers: any
   data: Message[];
 }
 
@@ -77,7 +78,7 @@ export class ApiClientService {
 
   login(credentials: LoginRequest): Observable<ApiResponse<AuthResponse>> {
     return from(this.client.post<AuthResponse>('/login', credentials)
-      .then((response: any) => ({ data: response.data, headers: response.headers })));
+      .then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
   }
 
   signup(userData: SignupRequest): Observable<ApiResponse<AuthResponse>> {
@@ -86,12 +87,15 @@ export class ApiClientService {
   }
 
   sendMessage(messageData: NewMessageRequest): Observable<ApiResponse<NewMessageResponse>> {
-    return from(this.client.post<AuthResponse>('/api/v1/messages', messageData)
+    return from(this.client.post<AuthResponse>('/api/v1/messages', messageData, {
+      headers: { Authorization: this.token }
+    })
       .then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
   }
 
-  getMessages(): Observable<ApiResponse<MessagesResponse>> {
-    return from(this.client.get<AuthResponse>('/api/v1/messages')
-      .then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
+  getMessages(): Observable<ApiResponse<Message>> {
+    return from(this.client.get<AuthResponse>('/api/v1/messages', {
+      headers: { Authorization: this.token }
+    }).then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
   }
 }
