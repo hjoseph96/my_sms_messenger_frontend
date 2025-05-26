@@ -58,8 +58,6 @@ export class SendNewMessageComponent {
   sendMessage() {
     if (this.newMessageForm.valid)
     {
-      debugger;
-
       this.client.sendMessage({
         message: {
           receiver_phone_number: this.newMessageForm.controls['phone'].value.internationalNumber,

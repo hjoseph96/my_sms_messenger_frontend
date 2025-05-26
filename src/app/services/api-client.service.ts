@@ -86,6 +86,13 @@ export class ApiClientService {
       .then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
   }
 
+
+  logout(): Observable<ApiResponse<AuthResponse>> {
+    return from(this.client.delete<AuthResponse>('/logout', {
+      headers: { Authorization: this.token }
+    }).then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
+  }
+
   sendMessage(messageData: NewMessageRequest): Observable<ApiResponse<NewMessageResponse>> {
     return from(this.client.post<AuthResponse>('/api/v1/messages', messageData, {
       headers: { Authorization: this.token }

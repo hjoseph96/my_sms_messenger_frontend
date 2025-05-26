@@ -30,6 +30,15 @@ export class LoginRegisterComponent {
   })
 
   client: ApiClientService = new ApiClientService()
+
+  ngOnInit() {
+    const storedToken = localStorage.getItem('userToken')
+
+    if (storedToken)
+    {
+      this.router.navigate(['/send_message']);
+    }
+  }
   
 
   registerNewUser() {
@@ -47,7 +56,7 @@ export class LoginRegisterComponent {
       }).subscribe({
           next: (response) => {
             // Store JWT in localStorage
-            localStorage.setItem('userToken', response.headers.authorization);
+            localStorage.setItem('userToken', response.headers.authorization)
 
             this.router.navigate(['/send_message']);
           },
