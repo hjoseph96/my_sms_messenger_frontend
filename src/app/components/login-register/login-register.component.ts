@@ -48,8 +48,9 @@ export class LoginRegisterComponent {
       }).subscribe({
           next: (response) => {
             // Handle successful signup
-            console.log('Signup successful: ', response.status.message);
-            const user = response.data;
+            debugger
+            // console.log('Signup successful: ', response.status.message);
+            const user = response.data.data;
 
             localStorage.setItem('currentUser', JSON.stringify(user));
 
@@ -76,6 +77,7 @@ export class LoginRegisterComponent {
         }
       }).subscribe({
           next: (response) => {
+            debugger
             // Handle successful signup
             const user = response.data;
 

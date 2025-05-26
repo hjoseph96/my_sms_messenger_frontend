@@ -19,7 +19,20 @@
                             <div class="field">
                                 <label class="label">To: </label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Your email" [class.is-danger]="newMessageForm.controls['phone'].touched && !newMessageForm.controls['phone'].valid" formControlName="phone">
+                                    <ngx-intl-tel-input
+                                        [preferredCountries]="[CountryISO.UnitedStates]"
+                                        [enableAutoCountrySelect]="false"
+                                        [enablePlaceholder]="true"
+                                        [searchCountryFlag]="true"
+                                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                        [selectFirstCountry]="false"
+                                        [selectedCountryISO]="CountryISO.UnitedStates"
+                                        [maxLength]="15"
+                                        [phoneValidation]="true"
+                                        name="phone"
+                                        formControlName="phone"
+                                        [class.is-danger]="newMessageForm.controls['phone'].touched && !newMessageForm.controls['phone'].valid"
+                                    ></ngx-intl-tel-input>
                                 </div>
 
                                 <p class="help is-danger" *ngIf="newMessageForm.controls['phone'].touched && newMessageForm.controls['phone'].invalid">
@@ -28,9 +41,9 @@
                             </div>
 
                             <div class="field">
-                                <label class="label">Password</label>
+                                <label class="label">Content</label>
                                 <div class="control">
-                                    
+                                    <textarea class="input" type="text" placeholder="Enter your message here." [class.is-danger]="newMessageForm.controls['content'].touched && !newMessageForm.controls['content'].valid" formControlName="content" ></textarea>
                                 </div>
                             </div>
 
@@ -45,8 +58,22 @@
                   </div>
             </div>
 
-            <div class="column list-all-mesages">
-
+            <div class="column list-all-messages">
+                <div class="card new-message-card">
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-content">
+                          <p class="title is-4">Messages</p>
+                        </div>
+                      </div>
+                  
+                      <div class="content">
+                        <div *ngFor="let m of sentMessages">
+                            {{ m.content }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { environment } from '../../environment';
 
 export interface LoginRequest {
@@ -41,7 +41,6 @@ export interface AuthResponse {
     data: User
 }
 
-
 export interface Message {
   id: string;
   content: string;
@@ -49,10 +48,19 @@ export interface Message {
   user_id: string;
 }
 
-
 export interface NewMessageResponse {
   status: Status,
   data: Message
+}
+
+export interface MessagesResponse {
+  status: Status;
+  data: Message[];
+}
+
+export interface ApiResponse<T> {
+  data: T;
+  headers: any;
 }
 
 @Injectable({
@@ -61,21 +69,29 @@ export interface NewMessageResponse {
 export class ApiClientService {
   private client: AxiosInstance;
 
-  constructor() {
+  constructor(@Optional() @Inject('API_TOKEN') private token?: string) {
     this.client = axios.create({
       baseURL: environment.baseUrl
     });
   }
 
-  login(credentials: LoginRequest): Observable<AuthResponse> {
-    return from(this.client.post<AuthResponse>('/login', credentials).then(response => response.data));
+  login(credentials: LoginRequest): Observable<ApiResponse<AuthResponse>> {
+    return from(this.client.post<AuthResponse>('/login', credentials)
+      .then((response: any) => ({ data: response.data, headers: response.headers })));
   }
 
-  signup(userData: SignupRequest): Observable<AuthResponse> {
-    return from(this.client.post<AuthResponse>('/signup', userData).then(response => response.data));
+  signup(userData: SignupRequest): Observable<ApiResponse<AuthResponse>> {
+    return from(this.client.post<AuthResponse>('/signup', userData)
+      .then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
   }
 
-  sendMessage(messageData: NewMessageRequest): Observable<NewMessageResponse> {
-    return from(this.client.post<NewMessageResponse>('/api/v1/messages', messageData).then(response => response.data));
+  sendMessage(messageData: NewMessageRequest): Observable<ApiResponse<NewMessageResponse>> {
+    return from(this.client.post<AuthResponse>('/api/v1/messages', messageData)
+      .then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
+  }
+
+  getMessages(): Observable<ApiResponse<MessagesResponse>> {
+    return from(this.client.get<AuthResponse>('/api/v1/messages')
+      .then((response: AxiosResponse) => ({ data: response.data, headers: response.headers })));
   }
 }
